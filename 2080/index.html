@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        padding: 20px;
+      }
+      .form-container {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      input[type="text"],
+      input[type="password"],
+      select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      input[type="radio"] {
+        margin: 0 10px 0 0;
+      }
+      .error {
+        color: red;
+        margin-top: -10px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #28a745;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Registration Form</h2>
+      <form id="registrationForm" onsubmit="return validateForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" />
+        <div id="usernameError" class="error"></div>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" />
+        <div id="passwordError" class="error"></div>
+
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+          <option value="">Select a country</option>
+          <option value="USA">USA</option>
+          <option value="Canada">Canada</option>
+          <option value="UK">UK</option>
+          <!-- Add more countries as needed -->
+        </select>
+        <div id="countryError" class="error"></div>
+
+        <label>Gender:</label><br />
+        <input type="radio" id="male" name="gender" value="male" />
+        <label for="male">Male</label><br />
+        <input type="radio" id="female" name="gender" value="female" />
+        <label for="female">Female</label><br />
+        <div id="genderError" class="error"></div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      function validateForm() {
+        // Clear previous errors
+        document.getElementById("usernameError").innerText = "";
+        document.getElementById("passwordError").innerText = "";
+        document.getElementById("countryError").innerText = "";
+        document.getElementById("genderError").innerText = "";
+
+        let isValid = true;
+
+        // Validate username
+        let username = document.getElementById("username").value;
+        if (username.length < 4) {
+          document.getElementById("usernameError").innerText =
+            "Username must be at least 4 characters long.";
+          isValid = false;
+        }
+
+        // Validate password
+        let password = document.getElementById("password").value;
+        let passwordRegex = /^[A-Za-z].*#$/;
+        if (!passwordRegex.test(password)) {
+          document.getElementById("passwordError").innerText =
+            "Password must start with a letter and end with '#'.";
+          isValid = false;
+        }
+
+        // Validate country
+        let country = document.getElementById("country").value;
+        if (country === "") {
+          document.getElementById("countryError").innerText =
+            "Please select a country.";
+          isValid = false;
+        }
+
+        // Validate gender
+        let genderMale = document.getElementById("male").checked;
+        let genderFemale = document.getElementById("female").checked;
+        if (!genderMale && !genderFemale) {
+          document.getElementById("genderError").innerText =
+            "Please select a gender.";
+          isValid = false;
+        }
+
+        return isValid;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,3 @@
+Write HTML script to create HTML form as below and perform form validation using JavaScript.
+
+The validation should be as; the username should be of length at least 4 and is required. The password should start with a character and end with # and is required. The country and gender should be checked.
